@@ -1,0 +1,16 @@
+{
+  "name": "HelloIonic",
+  "private": "true",
+  "dependencies": {
+	"angular-animate": "~1.4.x",
+	"angular-touch": "~1.4.x",
+	"angular-sanitize": "~1.4.x",
+	"angular": "~1.4.x",
+	"angular-new-router": "latest",
+    "ngCordova": "latest"
+  },
+  "devDependencies": {
+    "ionic": "driftyco/ionic-bower#master",
+	"curl": "latest"
+  }
+}

@@ -2,8 +2,9 @@
 
 import {onReady} from 'bootstrap';
 import {configuration} from 'configuration';
-import {MainController} from 'components/main/maincontroller';
-import {ApplicationController} from 'components/application/applicationcontroller';
+import {MainController} from 'components/main/main';
+import {ContactsController} from 'components/contacts/contacts';
+import {ApplicationController} from 'components/application/application';
 
 angular.module('myApp', ['ionic', 'myApp.controllers', 'ngNewRouter'])
     .config(configuration)
@@ -11,6 +12,7 @@ angular.module('myApp', ['ionic', 'myApp.controllers', 'ngNewRouter'])
 
 angular.module('myApp.controllers', [])
 	.controller('MainController', MainController)
+    .controller('ContactsController', ContactsController)
 	.controller('ApplicationController', ['$router', ApplicationController]);
 
 

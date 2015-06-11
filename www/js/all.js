@@ -34,25 +34,56 @@ define("configuration", ["exports"], function (exports) {
 		$componentLoaderProvider.setTemplateMapping(function (name) {
 			return "templates/" + name + "/" + name + ".html";
 		});
+
+		$componentLoaderProvider.setCtrlNameMapping(function (name) {
+			var controllerName = "";
+			if (name.indexOf("/") !== -1) {
+				var part = name.split("/");
+				controllerName = part[1][0].toUpperCase() + part[1].substr(1) + "Controller";
+				//console.log(controllerName);
+				return controllerName;
+			} else {
+				controllerName = name[0].toUpperCase() + name.substr(1) + "Controller";
+				//console.log(controllerName);
+				return controllerName;
+			}
+		});
 	}
 });
-define("components/application/applicationcontroller", ["exports"], function (exports) {
-				"use strict";
+define("components/application/application", ["exports"], function (exports) {
+    "use strict";
 
-				var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+    var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
-				Object.defineProperty(exports, "__esModule", {
-								value: true
-				});
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
 
-				var ApplicationController = exports.ApplicationController = function ApplicationController($router) {
-								_classCallCheck(this, ApplicationController);
+    var ApplicationController = exports.ApplicationController = function ApplicationController($router) {
+        _classCallCheck(this, ApplicationController);
 
-								console.log("ApplicationController constructor");
-								$router.config([{ path: "/", redirectTo: "/main" }, { path: "/main", component: "main" }]);
-				};
+        console.log("ApplicationController constructor");
+        $router.config([{ path: "/", redirectTo: "/main" }, { path: "/main", component: "main" }, { path: "/contacts", component: "contacts" }]);
+    };
 });
-define("components/main/maincontroller", ["exports"], function (exports) {
+define("components/contacts/contacts", ["exports"], function (exports) {
+    "use strict";
+
+    var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+
+    var ContactsController = exports.ContactsController = function ContactsController() {
+        _classCallCheck(this, ContactsController);
+
+        console.log("ContactsController constructor");
+
+        this.myDataOnScope = "Hello Ionic!!";
+    };
+});
+define("components/main/main", ["exports"], function (exports) {
     "use strict";
 
     var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
@@ -69,19 +100,20 @@ define("components/main/maincontroller", ["exports"], function (exports) {
         this.myDataOnScope = "Hello Ionic!!";
     };
 });
-define("app", ["exports", "bootstrap", "configuration", "components/main/maincontroller", "components/application/applicationcontroller"], function (exports, _bootstrap, _configuration, _componentsMainMaincontroller, _componentsApplicationApplicationcontroller) {
+define("app", ["exports", "bootstrap", "configuration", "components/main/main", "components/contacts/contacts", "components/application/application"], function (exports, _bootstrap, _configuration, _componentsMainMain, _componentsContactsContacts, _componentsApplicationApplication) {
     // Ionic Starter App
 
     "use strict";
 
     var onReady = _bootstrap.onReady;
     var configuration = _configuration.configuration;
-    var MainController = _componentsMainMaincontroller.MainController;
-    var ApplicationController = _componentsApplicationApplicationcontroller.ApplicationController;
+    var MainController = _componentsMainMain.MainController;
+    var ContactsController = _componentsContactsContacts.ContactsController;
+    var ApplicationController = _componentsApplicationApplication.ApplicationController;
 
     angular.module("myApp", ["ionic", "myApp.controllers", "ngNewRouter"]).config(configuration).run(onReady);
 
-    angular.module("myApp.controllers", []).controller("MainController", MainController).controller("ApplicationController", ["$router", ApplicationController]);
+    angular.module("myApp.controllers", []).controller("MainController", MainController).controller("ContactsController", ContactsController).controller("ApplicationController", ["$router", ApplicationController]);
 
     //angular.module('myApp.services', [])
     //.service('Chats', Chats);

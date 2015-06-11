@@ -1,4 +1,4 @@
-export class ApplicationController {
+class ApplicationController {
     constructor($router) {
         console.log('ApplicationController constructor');
         $router.config([
@@ -8,3 +8,5 @@ export class ApplicationController {
         ]);
     }
 }
+
+export {ApplicationController}

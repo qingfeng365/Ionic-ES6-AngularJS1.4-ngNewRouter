@@ -22,33 +22,35 @@ define("bootstrap", ["exports"], function (exports) {
     }
 });
 define('configuration', ['exports'], function (exports) {
-	'use strict';
+    'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
-		value: true
-	});
-	exports.configuration = configuration;
+    Object.defineProperty(exports, '__esModule', {
+        value: true
+    });
+    exports.configuration = configuration;
 
-	function configuration($componentLoaderProvider) {
+    function configuration($componentLoaderProvider, $ionicConfigProvider) {
 
-		$componentLoaderProvider.setTemplateMapping(function (name) {
-			return 'templates/' + name + '/' + name + '.html';
-		});
+        $ionicConfigProvider.tabs.position('bottom');
 
-		$componentLoaderProvider.setCtrlNameMapping(function (name) {
-			var controllerName = '';
-			if (name.indexOf('/') !== -1) {
-				var part = name.split('/');
-				controllerName = part[1][0].toUpperCase() + part[1].substr(1) + 'Controller';
-				//console.log(controllerName);
-				return controllerName;
-			} else {
-				controllerName = name[0].toUpperCase() + name.substr(1) + 'Controller';
-				//console.log(controllerName);
-				return controllerName;
-			}
-		});
-	}
+        $componentLoaderProvider.setTemplateMapping(function (name) {
+            return 'templates/' + name + '/' + name + '.html';
+        });
+
+        $componentLoaderProvider.setCtrlNameMapping(function (name) {
+            var controllerName = '';
+            if (name.indexOf('/') !== -1) {
+                var part = name.split('/');
+                controllerName = part[1][0].toUpperCase() + part[1].substr(1) + 'Controller';
+                //console.log(controllerName);
+                return controllerName;
+            } else {
+                controllerName = name[0].toUpperCase() + name.substr(1) + 'Controller';
+                //console.log(controllerName);
+                return controllerName;
+            }
+        });
+    }
 });
 define('services/notificationservice', ['exports'], function (exports) {
     'use strict';
@@ -56,31 +58,12 @@ define('services/notificationservice', ['exports'], function (exports) {
     Object.defineProperty(exports, '__esModule', {
         value: true
     });
-
-    var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-    var HTTP = new WeakMap();
-
-    var NotificationService = (function () {
-        function NotificationService($http) {
-            _classCallCheck(this, NotificationService);
-
-            HTTP.set(this, $http);
-        }
-
-        _createClass(NotificationService, null, [{
-            key: 'factory',
-            value: function factory($http) {
-                return new NotificationService($http);
-            }
-        }]);
-
-        return NotificationService;
-    })();
-
     exports.NotificationService = NotificationService;
+
+    function NotificationService($http) {
+
+        return {};
+    }
 });
 define('services/userservice', ['exports'], function (exports) {
     'use strict';
@@ -88,77 +71,51 @@ define('services/userservice', ['exports'], function (exports) {
     Object.defineProperty(exports, '__esModule', {
         value: true
     });
-
-    var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-    var HTTP = new WeakMap();
-    var USER = new WeakMap();
-
-    var UserService = (function () {
-        function UserService($http) {
-            _classCallCheck(this, UserService);
-
-            console.log('userservice constructor');
-            HTTP.set(this, $http);
-            this.isLoggedIn = false;
-        }
-
-        _createClass(UserService, [{
-            key: 'sayHello',
-            value: function sayHello(message) {
-                console.log('UserService says "Hello!"');
-                alert('Caller says: ' + message);
-            }
-        }, {
-            key: 'getUser',
-            value: function getUser() {
-                return USER.get(this);
-            }
-        }, {
-            key: 'setUser',
-            value: function setUser(user) {
-                return USER.set(this, user);
-            }
-        }, {
-            key: 'isLoggedIn',
-            value: function isLoggedIn() {
-                return this.isLoggedIn;
-            }
-        }, {
-            key: 'login',
-            value: function login(credentials) {
-                var _this = this;
-
-                return new Promise(function (resolve, reject) {
-                    _this.isLoggedIn = true;
-                    resolve();
-                });
-            }
-        }, {
-            key: 'logout',
-            value: function logout() {
-                this.isLoggedIn = false;
-            }
-        }], [{
-            key: 'factory',
-            value: function factory($http) {
-                return new UserService($http);
-            }
-        }]);
-
-        return UserService;
-    })();
-
     exports.UserService = UserService;
-});
-define('components/application/application', ['exports'], function (exports) {
-    'use strict';
 
-    Object.defineProperty(exports, '__esModule', {
-        value: true
-    });
+    function UserService($http) {
+
+        var bIsLoggedIn = false;
+        var user = {};
+
+        var sayHello = function sayHello(pMessage) {
+            alert('Caller says: ' + pMessage);
+        };
+
+        var getUser = function getUser() {
+            return user;
+        };
+
+        var setUser = function setUser(pUser) {
+            user = pUser;
+        };
+
+        var isLoggedIn = function isLoggedIn() {
+            return bIsLoggedIn === true;
+        };
+
+        var login = function login(pCredentials) {
+            return new Promise(function (resolve, reject) {
+                bIsLoggedIn = true;
+                resolve();
+            });
+        };
+
+        var logout = function logout() {
+            bIsLoggedIn = false;
+        };
+
+        return {
+            sayHello: sayHello,
+            getUser: getUser,
+            isLoggedIn: isLoggedIn,
+            login: login,
+            logout: logout
+        };
+    }
+});
+define('components/application/application', ['exports', 'module'], function (exports, module) {
+    'use strict';
 
     function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
@@ -169,33 +126,27 @@ define('components/application/application', ['exports'], function (exports) {
         $router.config([{ path: '/', redirectTo: '/main' }, { path: '/main', component: 'main' }, { path: '/contacts', component: 'contacts' }]);
     };
 
-    exports.ApplicationController = ApplicationController;
+    module.exports = { ApplicationController: ApplicationController };
 });
-define('components/contacts/contacts', ['exports'], function (exports) {
+define('components/contacts/contacts', ['exports', 'module'], function (exports, module) {
     'use strict';
-
-    Object.defineProperty(exports, '__esModule', {
-        value: true
-    });
 
     var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
     function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
     var ContactsController = (function () {
-        function ContactsController(UserService) {
+        function ContactsController(userservice) {
             _classCallCheck(this, ContactsController);
 
             console.log('ContactsController constructor');
-            console.log(UserService);
             this.myDataOnScope = 'Hello Ionic!!';
-            this.UserService = UserService;
+            this.UserService = userservice;
         }
 
         _createClass(ContactsController, [{
             key: 'sayHello',
             value: function sayHello() {
-                console.log('say it!');
                 this.UserService.sayHello('Hello');
             }
         }]);
@@ -203,8 +154,7 @@ define('components/contacts/contacts', ['exports'], function (exports) {
         return ContactsController;
     })();
 
-    ContactsController.$inject = ['userService'];
-    exports.ContactsController = ContactsController;
+    module.exports = { ContactsController: ContactsController };
 });
 define('components/login/login', ['exports'], function (exports) {
     'use strict';
@@ -250,14 +200,7 @@ define('app', ['exports', './bootstrap', './configuration', './components/main/m
     //Config
     'use strict';
 
-    var UserServiceInstance = _servicesUserservice.UserService.factory;
-    var NotificationServiceInstance = _servicesNotificationservice.NotificationService.factory;
-
-    angular.module('myApp', ['ionic', 'myApp.controllers', 'myApp.services', 'ngNewRouter']).config(_configuration.configuration).run(_bootstrap.onReady);
-
-    angular.module('myApp.services', []).factory('UserService', ['$http', UserServiceInstance]).factory('NotificationService', ['$http', NotificationServiceInstance]);
-
-    angular.module('myApp.controllers', []).controller('MainController', [_componentsMainMain.MainController]).controller('ContactsController', ['UserService', _componentsContactsContacts.ContactsController]).controller('ApplicationController', ['$router', _componentsApplicationApplication.ApplicationController]);
+    angular.module('myApp', ['ionic', 'ngNewRouter']).factory('userService', _servicesUserservice.UserService).factory('notificationService', _servicesNotificationservice.NotificationService).controller('ApplicationController', ['$router', _componentsApplicationApplication.ApplicationController]).controller('MainController', [_componentsMainMain.MainController]).controller('ContactsController', ['userService', _componentsContactsContacts.ContactsController]).config(_configuration.configuration).run(_bootstrap.onReady);
 });
 
 //Controller

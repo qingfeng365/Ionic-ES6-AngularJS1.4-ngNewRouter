@@ -13,26 +13,15 @@ import {ApplicationController}  from './components/application/application';
 import {NotificationService}    from './services/notificationservice';
 import {UserService}            from './services/userservice';
 
-let UserServiceInstance         = UserService.factory;
-let NotificationServiceInstance = NotificationService.factory;
-
 angular.module('myApp',
     [
         'ionic',
-        'myApp.controllers',
-        'myApp.services',
         'ngNewRouter'
     ])
+    .factory('userService', UserService)
+    .factory('notificationService', NotificationService)
+    .controller('ApplicationController', ['$router', ApplicationController])
+    .controller('MainController', [MainController])
+    .controller('ContactsController', ['userService', ContactsController])
     .config(configuration)
     .run(onReady);
-
-angular.module('myApp.services', [])
-    .factory('UserService', ['$http',UserServiceInstance])
-    .factory('NotificationService', ['$http', NotificationServiceInstance]);
-
-angular.module('myApp.controllers', [])
-    .controller('MainController', [MainController])
-    .controller('ContactsController', ['UserService', ContactsController])
-	.controller('ApplicationController', ['$router', ApplicationController]);
-
-

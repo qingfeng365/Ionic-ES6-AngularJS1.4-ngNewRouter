@@ -1,15 +1,7 @@
 'use strict';
 
-const HTTP = new WeakMap();
+export function NotificationService($http) {
 
-class NotificationService {
-    constructor($http){
-        HTTP.set(this, $http);
-    }
-
-    static factory($http) {
-        return new NotificationService($http);
-    }
+    return {}
 }
 
-export {NotificationService}

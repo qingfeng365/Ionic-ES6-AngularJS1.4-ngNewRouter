@@ -1,17 +1,14 @@
 'use strict';
 
 class ContactsController {
-    constructor(UserService) {
+    constructor(userservice) {
         console.log('ContactsController constructor');
-        console.log(UserService);
         this.myDataOnScope = 'Hello Ionic!!';
-        this.UserService = UserService;
+        this.UserService = userservice;
     }
 
-    sayHello(){
-        console.log('say it!');
+    sayHello() {
         this.UserService.sayHello('Hello');
     }
 }
-ContactsController.$inject = ['userService'];
-export {ContactsController}
+export default {ContactsController}

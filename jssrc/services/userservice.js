@@ -1,47 +1,42 @@
 'use strict';
 
-const HTTP          = new WeakMap();
-const USER          = new WeakMap();
+export function UserService($http) {
 
-class UserService {
+    let bIsLoggedIn = false;
+    let user = {};
 
-    constructor($http){
-        console.log('userservice constructor');
-        HTTP.set(this, $http);
-        this.isLoggedIn = false;
-    }
+    var sayHello = function (pMessage) {
+        alert('Caller says: ' + pMessage);
+    };
 
-    sayHello(message){
-        console.log('UserService says "Hello!"');
-        alert('Caller says: ' + message);
-    }
+    var getUser = function () {
+        return user;
+    };
 
-    getUser(){
-        return USER.get(this);
-    }
+    var setUser = function (pUser) {
+        user = pUser;
+    };
 
-    setUser(user){
-        return USER.set(this, user);
-    }
+    var isLoggedIn = function () {
+        return (bIsLoggedIn === true);
+    };
 
-    isLoggedIn(){
-        return this.isLoggedIn;
-    }
-
-    login(credentials){
-        return new Promise((resolve,reject) => {
-            this.isLoggedIn = true;
+    var login = function (pCredentials) {
+        return new Promise((resolve, reject) => {
+            bIsLoggedIn = true;
             resolve();
         });
-    }
+    };
 
-    logout(){
-        this.isLoggedIn = false;
-    }
+    var logout = function () {
+        bIsLoggedIn = false;
+    };
 
-    static factory($http) {
-        return new UserService($http);
+    return {
+        sayHello: sayHello,
+        getUser: getUser,
+        isLoggedIn: isLoggedIn,
+        login: login,
+        logout: logout
     }
 }
-
-export {UserService}

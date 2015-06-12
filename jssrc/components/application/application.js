@@ -1,3 +1,5 @@
+'use strict';
+
 class ApplicationController {
     constructor($router) {
         console.log('ApplicationController constructor');
@@ -9,4 +11,4 @@ class ApplicationController {
     }
 }
 
-export {ApplicationController}
+export default {ApplicationController}

@@ -1,4 +1,3 @@
-
 curl({
     baseUrl: 'js',
     paths: {

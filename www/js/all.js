@@ -1,10 +1,10 @@
 define("bootstrap", ["exports"], function (exports) {
     "use strict";
 
+    exports.onReady = onReady;
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
-    exports.onReady = onReady;
 
     function onReady($ionicPlatform) {
 
@@ -21,57 +21,59 @@ define("bootstrap", ["exports"], function (exports) {
         });
     }
 });
-define('configuration', ['exports'], function (exports) {
-    'use strict';
+define("configuration", ["exports"], function (exports) {
+    "use strict";
 
-    Object.defineProperty(exports, '__esModule', {
+    exports.configuration = configuration;
+    Object.defineProperty(exports, "__esModule", {
         value: true
     });
-    exports.configuration = configuration;
 
     function configuration($componentLoaderProvider, $ionicConfigProvider) {
 
-        $ionicConfigProvider.tabs.position('bottom');
+        $ionicConfigProvider.tabs.position("bottom");
 
         $componentLoaderProvider.setTemplateMapping(function (name) {
-            return 'templates/' + name + '/' + name + '.html';
+            return "templates/" + name + "/" + name + ".html";
         });
 
         $componentLoaderProvider.setCtrlNameMapping(function (name) {
-            var controllerName = '';
-            if (name.indexOf('/') !== -1) {
-                var part = name.split('/');
-                controllerName = part[1][0].toUpperCase() + part[1].substr(1) + 'Controller';
+            var controllerName = "";
+            if (name.indexOf("/") !== -1) {
+                var part = name.split("/");
+                controllerName = part[1][0].toUpperCase() + part[1].substr(1) + "Controller";
                 //console.log(controllerName);
                 return controllerName;
             } else {
-                controllerName = name[0].toUpperCase() + name.substr(1) + 'Controller';
+                controllerName = name[0].toUpperCase() + name.substr(1) + "Controller";
                 //console.log(controllerName);
                 return controllerName;
             }
         });
     }
 });
-define('services/notificationservice', ['exports'], function (exports) {
-    'use strict';
+define("services/notificationservice", ["exports"], function (exports) {
+    "use strict";
 
-    Object.defineProperty(exports, '__esModule', {
+    exports.NotificationService = NotificationService;
+    Object.defineProperty(exports, "__esModule", {
         value: true
     });
-    exports.NotificationService = NotificationService;
+    "use strict";
 
     function NotificationService($http) {
 
         return {};
     }
 });
-define('services/userservice', ['exports'], function (exports) {
-    'use strict';
+define("services/userservice", ["exports"], function (exports) {
+    "use strict";
 
-    Object.defineProperty(exports, '__esModule', {
+    exports.UserService = UserService;
+    Object.defineProperty(exports, "__esModule", {
         value: true
     });
-    exports.UserService = UserService;
+    "use strict";
 
     function UserService($http) {
 
@@ -79,7 +81,7 @@ define('services/userservice', ['exports'], function (exports) {
         var user = {};
 
         var sayHello = function sayHello(pMessage) {
-            alert('Caller says: ' + pMessage);
+            alert("Caller says: " + pMessage);
         };
 
         var getUser = function getUser() {
@@ -114,96 +116,101 @@ define('services/userservice', ['exports'], function (exports) {
         };
     }
 });
-define('components/application/application', ['exports', 'module'], function (exports, module) {
-    'use strict';
+define("components/application/application", ["exports", "module"], function (exports, module) {
+    "use strict";
 
-    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+    var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
     var ApplicationController = function ApplicationController($router) {
         _classCallCheck(this, ApplicationController);
 
-        console.log('ApplicationController constructor');
-        $router.config([{ path: '/', redirectTo: '/main' }, { path: '/main', component: 'main' }, { path: '/contacts', component: 'contacts' }]);
+        console.log("ApplicationController constructor");
+        $router.config([{ path: "/", redirectTo: "/main" }, { path: "/main", component: "main" }, { path: "/contacts", component: "contacts" }]);
     };
 
     module.exports = { ApplicationController: ApplicationController };
 });
-define('components/contacts/contacts', ['exports', 'module'], function (exports, module) {
-    'use strict';
+define("components/contacts/contacts", ["exports", "module"], function (exports, module) {
+    "use strict";
 
-    var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+    var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+    var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
     var ContactsController = (function () {
         function ContactsController(userservice) {
             _classCallCheck(this, ContactsController);
 
-            console.log('ContactsController constructor');
-            this.myDataOnScope = 'Hello Ionic!!';
+            console.log("ContactsController constructor");
+            this.myDataOnScope = "Hello Ionic!!";
             this.UserService = userservice;
         }
 
-        _createClass(ContactsController, [{
-            key: 'sayHello',
-            value: function sayHello() {
-                this.UserService.sayHello('Hello');
+        _createClass(ContactsController, {
+            sayHello: {
+                value: function sayHello() {
+                    this.UserService.sayHello("Hello");
+                }
             }
-        }]);
+        });
 
         return ContactsController;
     })();
 
     module.exports = { ContactsController: ContactsController };
 });
-define('components/login/login', ['exports'], function (exports) {
-    'use strict';
+define("components/login/login", ["exports"], function (exports) {
+    "use strict";
 
-    Object.defineProperty(exports, '__esModule', {
+    var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+
+    Object.defineProperty(exports, "__esModule", {
         value: true
     });
 
-    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-    var LoginController = function LoginController() {
+    var LoginController = exports.LoginController = function LoginController() {
         _classCallCheck(this, LoginController);
 
-        console.log('LoginController constructor');
+        console.log("LoginController constructor");
 
-        this.myDataOnScope = 'Hello Ionic login!!';
+        this.myDataOnScope = "Hello Ionic login!!";
     };
-
-    exports.LoginController = LoginController;
 });
-define('components/main/main', ['exports'], function (exports) {
-    'use strict';
+define("components/main/main", ["exports"], function (exports) {
+    "use strict";
 
-    Object.defineProperty(exports, '__esModule', {
+    var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+
+    Object.defineProperty(exports, "__esModule", {
         value: true
     });
 
-    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-    var MainController = function MainController() {
+    var MainController = exports.MainController = function MainController() {
         _classCallCheck(this, MainController);
 
-        console.log('MainController constructor');
+        console.log("MainController constructor");
 
-        this.myDataOnScope = 'Hello Ionic!!';
+        this.myDataOnScope = "Hello Ionic!!";
     };
-
-    exports.MainController = MainController;
 });
-define('app', ['exports', './bootstrap', './configuration', './components/main/main', './components/contacts/contacts', './components/application/application', './services/notificationservice', './services/userservice'], function (exports, _bootstrap, _configuration, _componentsMainMain, _componentsContactsContacts, _componentsApplicationApplication, _servicesNotificationservice, _servicesUserservice) {
+define("app", ["exports", "./bootstrap", "./configuration", "./components/main/main", "./components/contacts/contacts", "./components/application/application", "./services/notificationservice", "./services/userservice"], function (exports, _bootstrap, _configuration, _componentsMainMain, _componentsContactsContacts, _componentsApplicationApplication, _servicesNotificationservice, _servicesUserservice) {
     // Ionic Starter App
 
     //Config
-    'use strict';
+    "use strict";
 
-    angular.module('myApp', ['ionic', 'ngNewRouter']).factory('userService', _servicesUserservice.UserService).factory('notificationService', _servicesNotificationservice.NotificationService).controller('ApplicationController', ['$router', _componentsApplicationApplication.ApplicationController]).controller('MainController', [_componentsMainMain.MainController]).controller('ContactsController', ['userService', _componentsContactsContacts.ContactsController]).config(_configuration.configuration).run(_bootstrap.onReady);
+    var onReady = _bootstrap.onReady;
+    var configuration = _configuration.configuration;
+
+    //Controller
+    var MainController = _componentsMainMain.MainController;
+    var ContactsController = _componentsContactsContacts.ContactsController;
+    var ApplicationController = _componentsApplicationApplication.ApplicationController;
+
+    //Services
+    var NotificationService = _servicesNotificationservice.NotificationService;
+    var UserService = _servicesUserservice.UserService;
+
+    angular.module("myApp", ["ionic", "ngNewRouter"]).factory("userService", UserService).factory("notificationService", NotificationService).controller("ApplicationController", ["$router", ApplicationController]).controller("MainController", [MainController]).controller("ContactsController", ["userService", ContactsController]).config(configuration).run(onReady);
 });
-
-//Controller
-
-//Services
 //# sourceMappingURL=all.js.map
